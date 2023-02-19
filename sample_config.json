@@ -1,0 +1,10 @@
+{
+	"networks": [
+		{
+			"name":"net1",
+			"file":"/etc/wpa_supplicant/net1.conf"
+
+		}
+	]
+
+}
