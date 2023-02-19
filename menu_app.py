@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets, QtCore, uic
 import json
 from gui import Gui, addNetworkDialog
 import sys
+import os
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
@@ -62,6 +63,9 @@ class MenuApp(QtWidgets.QMainWindow, Gui):
 				curr = self.network_list.currentText()
 				for n in data["networks"]:
 					if curr == n["name"]:
-						print(n["path"])
+						#print(n["path"])
+						os.system("pkill wpa_supplicant")
+						os.system("/sbin/wpa_supplicant -i wlp0s20f3 -c "+n["path"])
+						os.system("dhclient wlp0s20f3")
 		except:
 			print("Couldn't find network")
