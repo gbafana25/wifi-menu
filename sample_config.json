@@ -1,8 +1,9 @@
 {
+	"default_interface":"wlan0",
 	"networks": [
 		{
 			"name":"net1",
-			"file":"/etc/wpa_supplicant/net1.conf"
+			"path":"/etc/wpa_supplicant/net1.conf"
 
 		}
 	]
