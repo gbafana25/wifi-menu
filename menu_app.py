@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, uic 
 import json
-from gui import Gui, addNetworkDialog
+from gui import Gui, addNetworkDialog, passwordDialog
 import sys
 import os
 
@@ -32,6 +32,10 @@ class MenuApp(QtWidgets.QMainWindow, Gui):
 		except:
 			self.interface_name.insert("wlan0")
 				
+	def getPassword(self):
+		p = passwordDialog(self)
+		p.exec()
+		return p.pwbox.text()
 
 
 	def addWifiNetwork(self):
@@ -86,6 +90,7 @@ class MenuApp(QtWidgets.QMainWindow, Gui):
 			
 
 	def connectToNetwork(self):
+		passw = self.getPassword()
 		try:
 			inf = self.interface_name.text()
 			if inf == "":
@@ -96,7 +101,7 @@ class MenuApp(QtWidgets.QMainWindow, Gui):
 					curr = self.network_list.currentText()
 					for n in data["networks"]:
 						if curr == n["name"]:
-							os.system("sudo pkill wpa_supplicant")
+							os.system("echo "+passw+" | sudo -S pkill wpa_supplicant")
 							os.system("sudo /sbin/wpa_supplicant -B -i "+inf+" -c "+n["path"])
 							os.system("sudo dhclient "+inf)
 							self.status_msg.setText("Connecting...")
