@@ -98,7 +98,7 @@ class MenuApp(QtWidgets.QMainWindow, Gui):
 						if curr == n["name"]:
 							os.system("sudo pkill wpa_supplicant")
 							os.system("sudo /sbin/wpa_supplicant -B -i "+inf+" -c "+n["path"])
-							os.system("sudo dhclient "+inf+" &")
+							os.system("sudo dhclient "+inf)
 							self.status_msg.setText("Connecting...")
 		except:
 			self.status_msg.setText("Couldn't find network")
